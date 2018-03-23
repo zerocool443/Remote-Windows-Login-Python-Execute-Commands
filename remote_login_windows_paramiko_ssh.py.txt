@@ -1,0 +1,19 @@
+import paramiko
+try:
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect("10.10.10.1",username="Administrator ",password="pass")
+    print("Connected to %s",hostname)
+    sleep(10)
+
+except :
+    print('failed to connect')
+
+try:
+    stdin, stdout, stderr = ssh.exec_command("dir")
+except Exception as e:
+    print (e.message)
+    err = ''.join(stderr.readlines())
+    out = ''.join(stdout.readlines())
+    final_output = str(out)+str(err)
+    
